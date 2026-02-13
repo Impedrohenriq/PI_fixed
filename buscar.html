@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Produtos - Hunter</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <!-- CSS global -->
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        body.buscar {
+            background-image: url('img/im4.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .overlay-dark {
+            background: rgba(0, 0, 0, 0.50);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .navbar-dark {
+            background: rgba(0, 0, 0, 0.85) !important;
+            backdrop-filter: blur(6px);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: #ffcc00 !important;
+        }
+
+        .nav-link {
+            color: #f0f0f0 !important;
+            font-weight: 500;
+            transition: 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffcc00 !important;
+        }
+
+        .search-container {
+            background: rgba(20, 20, 20, 0.85);
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 700px;
+            margin: 40px auto;
+            box-shadow: 0 0 12px rgba(0,0,0,0.6);
+            text-align: center;
+        }
+
+        .search-container h2 {
+            color: #ffcc00;
+            font-weight: 700;
+        }
+
+        .search-container input {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+        }
+
+        .search-container input:focus {
+            border-color: #ffcc00;
+            box-shadow: 0 0 6px #ffcc00;
+        }
+
+        .btn-search {
+            background-color: #ffcc00;
+            color: #000;
+            border: none;
+            font-weight: bold;
+        }
+
+        .btn-search:hover {
+            background-color: #e6b800;
+        }
+
+        .product-card {
+            background: #1b1b1b;
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.4);
+            transition: 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .product-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 16px rgba(255, 204, 0, 0.4);
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-price {
+            color: #28a745;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .btn-ver {
+            background-color: #ffcc00;
+            border: none;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .btn-ver:hover {
+            background-color: #e6b800;
+        }
+
+        .product-thumb {
+            width: 90px;
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .product-thumb img {
+            max-width: 90px;
+            max-height: 90px;
+            border-radius: 8px;
+            object-fit: contain;
+            background: rgba(255,255,255,0.05);
+            padding: 4px;
+            transition: opacity 0.3s ease;
+        }
+
+        /* CARROSSEL DE IMAGENS NO HOVER */
+        .carousel-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 280px;
+            height: 280px;
+            background: #1b1b1b;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border: 2px solid #ffcc00;
+        }
+
+        .product-thumb:hover .carousel-container {
+            display: flex;
+        }
+
+        .carousel-main-img {
+            max-width: 200px;
+            max-height: 200px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .carousel-thumbs {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 250px;
+        }
+
+        .carousel-thumbs img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            background: rgba(255,255,255,0.1);
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .carousel-thumbs img:hover,
+        .carousel-thumbs img.active {
+            border-color: #ffcc00;
+            transform: scale(1.1);
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 0 5px;
+            pointer-events: none;
+        }
+
+        .carousel-nav button {
+            background: rgba(255, 204, 0, 0.9);
+            border: none;
+            color: #000;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            pointer-events: auto;
+            transition: background 0.2s ease;
+        }
+
+        .carousel-nav button:hover {
+            background: #e6b800;
+        }
+
+        #loading {
+            color: #ffcc00;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        #noResultsMessage {
+            color: #ff6666;
+            font-size: 1.1rem;
+            display: none;
+        }
+
+        .footer-fixed {
+            background-color: rgba(0,0,0,0.85);
+            padding: 12px 0;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            color: #fff;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+
+<body class="buscar">
+    <div class="overlay-dark">
+
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-bullseye"></i> Hunter
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item d-none" id="logoutNav">
+                        <a class="nav-link" href="#" id="logoutLink">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house"></i> Início
+                        </a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="buscar.html">
+                            <i class="bi bi-search"></i> Buscar
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="alertas.html">
+                            <i class="bi bi-bell"></i> Alertas
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="feedback.html">
+                            <i class="bi bi-chat-dots"></i> Feedback
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="configurar.html">
+                            <i class="bi bi-gear"></i> Configurações</a>
+                    </li>
+
+                    <li class="nav-item" id="loginNav">
+                        <a class="nav-link" href="login.html">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item" id="loginNavRight">
+                        <a class="nav-link" href="login.html">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                    </li>
+
+                    <li class="nav-item d-none" id="logoutNavRight">
+                        <a class="nav-link" href="#" id="logoutLinkRight">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- ÁREA DE BUSCA -->
+        <div class="search-container">
+            <h2><i class="bi bi-search"></i> Buscar Produtos</h2>
+
+            <!-- IMAGEM DA CATEGORIA (inicialmente escondida) -->
+            <div id="imagem-categoria" class="mt-3" style="display:none;">
+                <img id="categoria-thumb" src="" style="width:120px; border-radius:8px;">
+            </div>
+
+            <form id="searchForm" class="mt-3">
+                <div class="input-group">
+                    <input type="text" id="productName" class="form-control" placeholder="Digite o nome do produto..." required>
+                    <div class="input-group-append">
+                        <button class="btn btn-search" type="submit">
+                            <i class="bi bi-search"></i> Buscar
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div id="loading">
+                <i class="bi bi-hourglass-split"></i> Buscando ofertas...
+            </div>
+            <p id="noResultsMessage" class="mt-3"></p>
+        </div>
+
+        <!-- RESULTADOS -->
+        <div class="container">
+            <div class="row" id="resultList"></div>
+        </div>
+
+        <!-- FOOTER FIXO -->
+        <footer class="footer-fixed">&copy; 2025 Hunter - Caçador de Preços</footer>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        const token = localStorage.getItem("token");
+
+        const loginNav      = document.getElementById("loginNav");
+        const logoutNav     = document.getElementById("logoutNav");
+        const loginNavRight = document.getElementById("loginNavRight");
+        const logoutNavRight= document.getElementById("logoutNavRight");
+        const logoutLink    = document.getElementById("logoutLink");
+        const logoutLinkRight = document.getElementById("logoutLinkRight");
+
+        function atualizarNavbarAutenticacao() {
+            if (token) {
+                loginNav?.classList.add("d-none");
+                loginNavRight?.classList.add("d-none");
+                logoutNav?.classList.remove("d-none");
+                logoutNavRight?.classList.remove("d-none");
+            } else {
+                loginNav?.classList.remove("d-none");
+                loginNavRight?.classList.remove("d-none");
+                logoutNav?.classList.add("d-none");
+                logoutNavRight?.classList.add("d-none");
+            }
+        }
+
+        atualizarNavbarAutenticacao();
+
+        function realizarLogout(e) {
+            e?.preventDefault();
+            localStorage.removeItem("token");
+            alert("Logout realizado!");
+            window.location.href = "index.html";
+        }
+
+        logoutLink?.addEventListener("click", realizarLogout);
+        logoutLinkRight?.addEventListener("click", realizarLogout);
+
+
+        /* -------------------------
+           FEATURE: IMAGEM DA CATEGORIA
+        ------------------------- */
+        function atualizarImagemCategoria(busca) {
+            const divImg = document.getElementById("imagem-categoria");
+            const imgEl = document.getElementById("categoria-thumb");
+
+            if (!busca) {
+                divImg.style.display = "none";
+                return;
+            }
+
+            const termo = busca.toLowerCase();
+            let imagemSelecionada = null;
+
+            if (termo.includes("mouse")) {
+                imagemSelecionada = "imgfeature/mouse.png";
+            } 
+            else if (termo.includes("teclado")) {
+                imagemSelecionada = "imgfeature/teclado.png";
+            }
+            else if (termo.includes("monitor")) {
+                imagemSelecionada = "imgfeature/monitor.png";
+            }
+            else if (termo.includes("pendrive")) {
+                imagemSelecionada = "imgfeature/pendrive.png";
+            }
+            else {
+                divImg.style.display = "none";
+                return;
+            }
+
+            imgEl.src = imagemSelecionada;
+            divImg.style.display = "block";
+        }
+
+
+        document.getElementById('searchForm').addEventListener('submit', buscarProdutos);
+
+        async function buscarProdutos(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('productName').value;
+
+            atualizarImagemCategoria(nome);
+
+            const resultList = document.getElementById('resultList');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            const loading = document.getElementById('loading');
+
+            resultList.innerHTML = "";
+            noResultsMessage.style.display = "none";
+            loading.style.display = "block";
+
+            try {
+                const response = await fetch(
+                    `http://localhost:8000/buscar-produtos?nome=${encodeURIComponent(nome)}`
+                );
+
+                loading.style.display = "none";
+
+                if (!response.ok) {
+                    noResultsMessage.style.display = "block";
+                    noResultsMessage.textContent = "Nenhum produto encontrado.";
+                    return;
+                }
+
+                const data = await response.json();
+                const produtos = data.produtos;
+
+                if (!produtos || produtos.length === 0) {
+                    noResultsMessage.style.display = "block";
+                    noResultsMessage.textContent = "Nenhum produto encontrado.";
+                    return;
+                }
+
+                produtos.forEach((prod, index) => {
+                    const div = document.createElement('div');
+                    div.classList.add('col-md-4', 'mb-4');
+
+                    const preco = Number(prod.preco).toLocaleString('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    });
+
+                    // Verifica se tem múltiplas imagens (Kabum)
+                    const temCarrossel = prod.imagens_urls && prod.imagens_urls.length > 1;
+                    const imagens = prod.imagens_urls && prod.imagens_urls.length > 0 
+                        ? prod.imagens_urls 
+                        : (prod.imagem_url ? [prod.imagem_url] : []);
+                    
+                    let thumbHTML = '';
+                    
+                    if (imagens.length > 0) {
+                        const imgPrincipal = imagens[0];
+                        
+                        if (temCarrossel) {
+                            // Cria carrossel com múltiplas imagens
+                            const thumbsHTML = imagens.slice(0, 6).map((img, i) => 
+                                `<img src="${img}" alt="Imagem ${i+1}" 
+                                     class="${i === 0 ? 'active' : ''}"
+                                     onclick="event.stopPropagation(); mudarImagemCarrossel('carousel-${index}', '${img}', this)">`
+                            ).join('');
+                            
+                            thumbHTML = `
+                                <div class="product-thumb" data-carousel-id="carousel-${index}">
+                                    <img src="${imgPrincipal}" alt="${prod.nome}" class="thumb-principal">
+                                    <div class="carousel-container" id="carousel-${index}">
+                                        <img src="${imgPrincipal}" alt="${prod.nome}" class="carousel-main-img" id="carousel-main-${index}">
+                                        <div class="carousel-nav">
+                                            <button onclick="event.stopPropagation(); navegarCarrossel('${index}', -1)">◀</button>
+                                            <button onclick="event.stopPropagation(); navegarCarrossel('${index}', 1)">▶</button>
+                                        </div>
+                                        <div class="carousel-thumbs">
+                                            ${thumbsHTML}
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            
+                            // Armazena as imagens para navegação
+                            if (!window.carrosselData) window.carrosselData = {};
+                            window.carrosselData[index] = { imagens: imagens, atual: 0 };
+                        } else {
+                            // Imagem única
+                            thumbHTML = `<div class="product-thumb"><img src="${imgPrincipal}" alt="${prod.nome}"></div>`;
+                        }
+                    }
+
+                    div.innerHTML = `
+                        <div class="product-card">
+                            <div class="product-info">
+                                <h5>${prod.nome}</h5>
+                                <p class="product-price">${preco}</p>
+                                <span class="badge ${prod.origem === 'Kabum' ? 'badge-warning' : 'badge-info'} mb-2">${prod.origem}</span>
+                                <a href="${prod.link}" target="_blank" class="btn btn-ver btn-block">
+                                    <i class="bi bi-box-arrow-up-right"></i> Ver Produto
+                                </a>
+                            </div>
+                            ${thumbHTML}
+                        </div>
+                    `;
+
+                    resultList.appendChild(div);
+                });
+
+            } catch (error) {
+                loading.style.display = "none";
+                noResultsMessage.style.display = "block";
+                noResultsMessage.textContent = "Erro ao buscar produtos.";
+                console.error(error);
+            }
+        }
+
+        // Funções do carrossel de imagens
+        function mudarImagemCarrossel(carouselId, imgSrc, thumbEl) {
+            const mainImg = document.getElementById('carousel-main-' + carouselId.replace('carousel-', ''));
+            if (mainImg) {
+                mainImg.src = imgSrc;
+            }
+            
+            // Atualiza classe active nas miniaturas
+            const thumbs = thumbEl.parentElement.querySelectorAll('img');
+            thumbs.forEach(t => t.classList.remove('active'));
+            thumbEl.classList.add('active');
+            
+            // Atualiza índice atual
+            const index = carouselId.replace('carousel-', '');
+            if (window.carrosselData && window.carrosselData[index]) {
+                const imagens = window.carrosselData[index].imagens;
+                window.carrosselData[index].atual = imagens.indexOf(imgSrc);
+            }
+        }
+
+        function navegarCarrossel(index, direcao) {
+            if (!window.carrosselData || !window.carrosselData[index]) return;
+            
+            const data = window.carrosselData[index];
+            let novoIndice = data.atual + direcao;
+            
+            // Loop circular
+            if (novoIndice < 0) novoIndice = data.imagens.length - 1;
+            if (novoIndice >= data.imagens.length) novoIndice = 0;
+            
+            data.atual = novoIndice;
+            
+            const mainImg = document.getElementById('carousel-main-' + index);
+            if (mainImg) {
+                mainImg.src = data.imagens[novoIndice];
+            }
+            
+            // Atualiza miniatura ativa
+            const carousel = document.getElementById('carousel-' + index);
+            if (carousel) {
+                const thumbs = carousel.querySelectorAll('.carousel-thumbs img');
+                thumbs.forEach((t, i) => {
+                    t.classList.toggle('active', i === novoIndice);
+                });
+            }
+        }
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- outros scripts do seu site -->
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+          <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+    <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+</body>
+</html>
+
+
+</body>
+</html>

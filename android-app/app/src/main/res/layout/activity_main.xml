@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_hunter_gradient"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.main.MainActivity">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:elevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:contentInsetStartWithNavigation="0dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="4dp"
+                    app:title="Hunter"
+                    app:titleCentered="false"
+                    app:titleTextColor="@color/secondaryColor" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fillViewport="true"
+                    android:paddingBottom="12dp"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:dividerPadding="8dp"
+                        android:showDividers="none">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/navHome"
+                            style="@style/HunterNavButton"
+                            android:text="Início" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/navSearch"
+                            style="@style/HunterNavButton"
+                            android:text="Buscar"
+                            android:textStyle="bold"
+                            android:textColor="@color/secondaryColor" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/navAlerts"
+                            style="@style/HunterNavButton"
+                            android:text="Alertas" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/navFeedback"
+                            style="@style/HunterNavButton"
+                            android:text="Feedback" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/navSettings"
+                            style="@style/HunterNavButton"
+                            android:text="Configurações" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/navLogin"
+                            style="@style/HunterNavButton"
+                            android:text="Login" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/searchCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:padding="0dp"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_search_card"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:id="@+id/textSearchTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Buscar Produtos"
+                            android:textColor="@color/secondaryColor"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textSearchSubtitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Digite o nome do produto para encontrar as melhores ofertas."
+                            android:textColor="@color/textSecondary"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:id="@+id/imageCategory"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="16dp"
+                            android:padding="8dp"
+                            android:scaleType="fitCenter"
+                            android:visibility="gone"
+                            tools:src="@mipmap/ic_launcher" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputSearch"
+                            style="@style/HunterOutlinedInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            app:boxCornerRadiusBottomEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:endIconDrawable="@android:drawable/ic_menu_search"
+                            app:endIconTint="@color/secondaryColor"
+                            app:endIconMode="custom" >
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editSearch"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Digite o nome do produto"
+                                android:imeOptions="actionSearch"
+                                android:inputType="text"
+                                android:textColor="@color/textPrimary"
+                                android:textColorHint="@color/textSecondary" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/buttonSearch"
+                            style="@style/HunterPrimaryButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="Buscar"
+                            android:background="@drawable/bg_button_gold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerProducts"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:clipToPadding="false"
+                    android:paddingBottom="80dp"
+                    android:paddingTop="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/footerText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/searchCard"
+                    tools:listitem="@layout/item_product" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="@style/Widget.AppCompat.ProgressBar"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible" />
+
+                <include
+                    android:id="@+id/emptyState"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/searchCard"
+                    layout="@layout/view_empty_state"
+                    tools:visibility="visible" />
+
+                <include
+                    android:id="@+id/errorState"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@id/footerText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    layout="@layout/view_error_state"
+                    tools:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/footerText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:text="© 2025 Hunter - Caçador de Preços"
+                    android:textColor="@color/textSecondary"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</FrameLayout>

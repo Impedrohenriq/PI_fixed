@@ -1,0 +1,26 @@
+name: Simple CD - Hunter
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Verificar Docker já instalado
+        run: docker --version
+
+      - name: Build da imagem Docker
+        run: docker build -t hunter-app .
+
+      - name: Deploy (simulado)
+        run: echo "Deploy realizado com sucesso! A imagem hunter-app foi construída."
+
+      - name: Finalização
+        run: echo "🎉 CD executado com sucesso!"

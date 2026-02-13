@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#101010</color>
+    <color name="primaryVariant">#050505</color>
+    <color name="secondaryColor">#FFCC00</color>
+    <color name="secondaryRipple">#33FFCC00</color>
+    <color name="textPrimary">#F5F5F5</color>
+    <color name="textSecondary">#CFCFCF</color>
+    <color name="errorBackground">#332222</color>
+    <color name="errorText">#FF6F61</color>
+    <color name="cardBackground">#141414</color>
+    <color name="cardBorder">#262626</color>
+</resources>

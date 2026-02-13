@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Hunter</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <!-- CSS Global -->
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* Mantendo a imagem já usada */
+        body.feedback {
+            background-image: url('img/im4.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Overlay para leitura */
+        .overlay-dark {
+            background: rgba(0, 0, 0, 0.55);
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        /* NAVBAR PREMIUM */
+        .navbar-dark {
+            background: rgba(0, 0, 0, 0.85) !important;
+            backdrop-filter: blur(6px);
+        }
+        .navbar-brand {
+            color: #ffcc00 !important;
+            font-weight: bold;
+        }
+        .nav-link {
+            color: #f1f1f1 !important;
+        }
+        .nav-link:hover {
+            color: #ffcc00 !important;
+        }
+
+        /* CARD DE FEEDBACK */
+        .feedback-container {
+            background: rgba(20, 20, 20, 0.85);
+            padding: 35px;
+            border-radius: 12px;
+            max-width: 600px;
+            margin: 60px auto;
+            box-shadow: 0 0 12px rgba(0,0,0,0.6);
+        }
+
+        .feedback-container h2 {
+            color: #ffcc00;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .form-control {
+            background-color: #2a2a2a;
+            color: white;
+            border: 1px solid #555;
+        }
+
+        .form-control:focus {
+            border-color: #ffcc00;
+            box-shadow: 0 0 6px #ffcc00;
+        }
+
+        textarea.form-control {
+            resize: none;
+        }
+
+        .btn-feedback {
+            background-color: #ffcc00;
+            color: black;
+            font-weight: bold;
+            border: none;
+        }
+
+        .btn-feedback:hover {
+            background-color: #e6b800;
+        }
+
+        /* FOOTER FIXO */
+        .footer-fixed {
+            background-color: rgba(0,0,0,0.85);
+            padding: 12px 0;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="feedback">
+
+<div class="overlay-dark">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="index.html">
+            <i class="bi bi-bullseye"></i> Hunter
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav mr-auto">                <li class="nav-item d-none" id="logoutNav"><a class="nav-link" href="#" id="logoutLink"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+
+                <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house"></i> Início</a></li>
+                <li class="nav-item"><a class="nav-link" href="buscar.html"><i class="bi bi-search"></i> Buscar</a></li>
+                <li class="nav-item"><a class="nav-link" href="alertas.html"><i class="bi bi-bell"></i> Alertas</a></li>
+                <li class="nav-item active"><a class="nav-link" href="feedback.html"><i class="bi bi-chat-dots"></i> Feedback</a></li> 
+                <li><a href="login.html"><i class="bi bi-box-arrow-in-right"></i> Login</a></li><li class="nav-item"><a class="nav-link" href="configurar.html"><i class="bi bi-gear"></i> Configurações</a></li>
+            
+                <li class="nav-item" id="loginNav"><a class="nav-link" href="login.html"><i class="bi bi-box-arrow-in-right"></i> Login</a></li></ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item d-none" id="logoutNav">
+                    <a class="nav-link" href="#" id="logoutLink"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                </li>
+
+                <li class="nav-item" id="loginNav">
+                    <a class="nav-link" href="login.html"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ÁREA DE FEEDBACK -->
+    <div class="feedback-container">
+        <h2><i class="bi bi-chat-square-heart"></i> Deixe seu Feedback</h2>
+
+        <form id="feedbackForm">
+            <div class="form-group text-left">
+                <label class="text-light">Nome</label>
+                <input type="text" id="nome" class="form-control" required>
+            </div>
+
+            <div class="form-group text-left">
+                <label class="text-light">Email</label>
+                <input type="email" id="email" class="form-control" required>
+            </div>
+
+            <div class="form-group text-left">
+                <label class="text-light">Feedback</label>
+                <textarea id="feedback" class="form-control" rows="4" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-feedback btn-block mt-3">
+                <i class="bi bi-send"></i> Enviar Feedback
+            </button>
+        </form>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer-fixed">&copy; 2025 Hunter - Caçador de Preços</footer>
+
+</div>
+
+<script>
+const loginNav  = document.getElementById("loginNav");
+const logoutNav = document.getElementById("logoutNav");
+const logoutLink = document.getElementById("logoutLink");
+const token = localStorage.getItem("token");
+
+if (token && loginNav && logoutNav) {
+    loginNav.classList.add("d-none");
+    logoutNav.classList.remove("d-none");
+} else if (loginNav && logoutNav) {
+    loginNav.classList.remove("d-none");
+    logoutNav.classList.add("d-none");
+}
+
+if (logoutLink) {
+    logoutLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        localStorage.removeItem("token");
+        alert("Logout realizado!");
+        window.location.href = "index.html";
+    });
+}
+
+// Controle da navbar
+    // Enviar feedback
+    document.getElementById("feedbackForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        if (!token) {
+            alert("Você precisa estar logado para enviar feedback.");
+            window.location.href = "login.html";
+            return;
+        }
+
+        const nome = document.getElementById("nome").value;
+        const email = document.getElementById("email").value;
+        const feedbackText = document.getElementById("feedback").value;
+
+        try {
+            const response = await fetch("http://localhost:8000/feedback", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ nome, email, feedback: feedbackText })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.detail || "Erro ao enviar feedback");
+            }
+
+            alert("Feedback enviado com sucesso!");
+            document.getElementById("feedbackForm").reset();
+
+        } catch (error) {
+            alert("Erro: " + error.message);
+        }
+    });
+</script>
+
+    <!-- outros scripts do seu site -->
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+          <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+    <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+</body>
+</html>
+
+
+</body>
+</html>

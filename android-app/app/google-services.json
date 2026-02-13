@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "24451319908",
+    "project_id": "hunterpifirebase",
+    "storage_bucket": "hunterpifirebase.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24451319908:android:5e119d08270f3dcfadf771",
+        "android_client_info": {
+          "package_name": "com.huntermobile.app.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6lZDFnF799w61kLfH1IHXsBPaj_2y3tE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

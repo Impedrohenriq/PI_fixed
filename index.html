@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hunter - Página Inicial</title>
+
+    <!-- ÍCONES BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        /* ==================== GLOBAL ==================== */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('img/header-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+        }
+
+        /* Overlay para melhorar legibilidade */
+        .overlay {
+            background: rgba(0, 0, 0, 0.55);
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* ==================== NAVBAR ==================== */
+        header {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 25px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            margin-top: 15px;
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin: 0 12px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ffcc00;
+        }
+
+        /* ==================== HERO ==================== */
+        .hero {
+            text-align: center;
+            padding: 120px 20px 80px;
+        }
+
+        .hero h2 {
+            font-size: 2.7rem;
+            margin-bottom: 20px;
+            color: #ffcc00;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+        }
+
+        .cta-button {
+            background-color: #ffcc00;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            color: #000;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+
+        .cta-button:hover {
+            background-color: #e6b800;
+        }
+
+        /* ==================== COMO FUNCIONA ==================== */
+        .como-funciona {
+            background-color: #111;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .como-funciona h2 {
+            font-size: 2.3rem;
+            font-weight: bold;
+            color: #ffcc00;
+            margin-bottom: 40px;
+        }
+
+        .steps-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            width: 300px;
+            padding: 25px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(4px);
+            transition: 0.3s;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.13);
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            color: #ffcc00;
+            margin-bottom: 15px;
+        }
+
+        .step h3 {
+            color: #fff;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .step p {
+            color: #ddd;
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            background-color: #111;
+            text-align: center;
+            padding: 15px;
+            color: #fff;
+            font-size: 0.95rem;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="overlay">
+
+    <!-- ==================== CABEÇALHO ==================== -->
+    <header>
+        <h1>Hunter</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="bi bi-house"></i> Início</a></li>
+                <li><a href="buscar.html"><i class="bi bi-search"></i> Buscar</a></li>
+                <li><a href="alertas.html"><i class="bi bi-bell"></i> Alertas</a></li>
+                <li><a href="feedback.html"><i class="bi bi-chat-dots"></i> Feedback</a></li>
+                <li><a href="configurar.html"><i class="bi bi-gear"></i> Configurações</a></li>
+                <li id="loginNav"><a href="login.html"><i class="bi bi-box-arrow-in-right"></i> Login</a></li>
+                <li id="logoutNav" style="display:none;"><a href="#" id="logoutLink"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ==================== HERO ==================== -->
+    <div class="hero">
+        <h2>Encontre o melhor preço, rápido, fácil e sem perder tempo.</h2>
+        <p>Compare valores de lojas diferentes em segundos usando o Hunter.</p>
+        <a href="buscar.html" class="cta-button">Começar agora</a>
+    </div>
+
+</div>
+
+    <!-- ==================== COMO FUNCIONA ==================== -->
+    <section class="como-funciona">
+        <h2>Como o Hunter funciona?</h2>
+
+        <div class="steps-container">
+
+            <div class="step">
+                <i class="bi bi-search step-icon"></i>
+                <h3>1. Você busca um produto</h3>
+                <p>Digite o produto que deseja comprar e o Hunter faz a varredura automática em diversas lojas.</p>
+            </div>
+
+            <div class="step">
+                <i class="bi bi-bar-chart-line step-icon"></i>
+                <h3>2. Comparamos os preços</h3>
+                <p>Os preços aparecem organizados do menor para o maior, com link direto para a loja.</p>
+            </div>
+
+            <div class="step">
+                <i class="bi bi-bell step-icon"></i>
+                <h3>3. Você cria alertas</h3>
+                <p>Cadastre alertas e seja avisado quando o preço atingir o valor desejado.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================== RODAPÉ ==================== -->
+    <footer>
+        &copy; 2025 Hunter - Caçador de Preços
+    </footer>
+
+
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem("token");
+    const loginItem  = document.getElementById("loginNav");
+    const logoutItem = document.getElementById("logoutNav");
+    const logoutLink = document.getElementById("logoutLink");
+
+    if (token && loginItem && logoutItem) {
+        loginItem.style.display = "none";
+        logoutItem.style.display = "inline-block";
+    } else if (loginItem && logoutItem) {
+        loginItem.style.display = "inline-block";
+        logoutItem.style.display = "none";
+    }
+
+    if (logoutLink) {
+        logoutLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            localStorage.removeItem("token");
+            alert("Você saiu da sua conta.");
+            window.location.href = "index.html";
+        });
+    }
+});
+</script>
+
+    <!-- outros scripts do seu site -->
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+          <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+    <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+</body>
+</html>
+
+
+</body>
+</html>
